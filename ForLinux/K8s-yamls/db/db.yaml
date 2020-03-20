@@ -1,0 +1,41 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+   name: mysql
+#   namespace: db-tier
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: mysql
+   strategy:
+      type: Recreate
+   template:
+      metadata:
+         labels:
+            app: mysql
+      spec:
+         # nodeName: ip-192-168-151-238.eu-west-2.compute.internal
+         containers:
+         - image: egapm/new-webstore:mysql
+           name: webstore-mysql 
+           env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+           ports:
+            - containerPort: 3306
+              name: mysql
+         imagePullSecrets:
+         - name: apmcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: webstoredb 
+#   namespace: db-tier
+spec:
+   ports:
+   - port: 3306 
+     targetPort: 3306
+   selector:
+      app: mysql

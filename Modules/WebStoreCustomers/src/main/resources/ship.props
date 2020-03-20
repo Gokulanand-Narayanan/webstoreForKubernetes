@@ -1,0 +1,24 @@
+##################################################################################################
+#************************************ DataSource Configuration **********************************#
+##################################################################################################
+DATA_SOURCE_JNDI_TOMCAT=java:/comp/env/jdbc/shiplocalDS
+##################################################################################################
+#********************************** Database Query Configuration ********************************#
+##################################################################################################
+PREPARED_STATMENT_QUERY=SELECT id, order_id, created_at, updated_at, customer_address_id, quote_address_id, region_id, customer_id, fax, region, postcode, lastname, street, city, email, telephone, country_id, firstname, address_type, prefix, middlename, suffix, company FROM checkout_order_address where id = ?
+##################################################################################################
+#************************************* HTTP Configuration ***************************************#
+##################################################################################################
+USER_AGENT=Mozilla/5.0
+GET_URL_1=http://customer/productservice/validateproduct.jsp
+##################################################################################################
+#************************************* JMS Configuration ****************************************#
+##################################################################################################
+DEFAULT_MESSAGE=customer object contains details
+DEFAULT_CONNECTION_FACTORY=jms/RemoteConnectionFactory
+DEFAULT_DESTINATION=jms/queue/paymentProcessingQueue
+DEFAULT_USERNAME=admina
+DEFAULT_PASSWORD=admina@123
+INITIAL_CONTEXT_FACTORY=org.jboss.naming.remote.client.InitialContextFactory
+PROVIDER_URL=http-remoting://order
+DEFAULT_MESSAGE_COUNT=1

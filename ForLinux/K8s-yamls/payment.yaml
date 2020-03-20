@@ -1,0 +1,49 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    name: payment
+#  namespace: frontend-tier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: payment
+  template:
+    metadata:
+      labels:
+        name: payment
+    spec:
+      #nodeName: worker1
+      containers:
+      - name: payment
+        image: egapm/docker-compose-kubernetes:payment
+        ports:
+         - containerPort: 8080
+        volumeMounts:
+         - name: config-vol
+           mountPath: /opt/egbtm
+        env:
+         - name: JAVA_OPTS
+         #-javaagent:/opt/egbtm/eg_btm.jar 
+           value: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=3333 -Dcom.sun.management.jmxremote.rmi.port=3333 -DeG_Service_Name=Webstore-microsvc -DeG_Group_Name=Payment"
+      volumes:
+      - name: config-vol
+        hostPath:
+         path: /opt/egurkha/lib/apm/Java/default 
+         type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+  labels:
+    name: payment
+spec:
+  ports:    
+  - port: 80
+    targetPort: 8080
+  selector:
+    name: payment

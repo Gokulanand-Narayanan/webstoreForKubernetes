@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: customer
+  template:
+    metadata:
+      labels:
+        name: customer
+    spec:
+#      nodeName: worker1
+      containers:
+      - name: customer
+        image: egapm/docker-compose-kubernetes:customer
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+         - name: config-vol
+           mountPath: /opt/egbtm
+        env:
+         - name: JAVA_OPTS
+         #-javaagent:/opt/egbtm/eg_btm.jar
+           value: "-Duser.timezone=Asia/Singapore -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=3333 -Dcom.sun.management.jmxremote.rmi.port=3333 -DeG_Service_Name=Webstore-microsvc -DeG_Group_Name=Customer"
+      volumes:
+      - name: config-vol
+        hostPath:
+         path: /opt/egurkha/lib/apm/Java/default 
+         type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer
+spec:
+  selector:
+    name: customer 
+  ports:
+  - port: 80
+    targetPort: 8080

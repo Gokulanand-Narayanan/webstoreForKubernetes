@@ -1,0 +1,84 @@
+version: '3'
+services:
+    webstore:
+        image: egapm/docker-compose-kubernetes:webstore
+        build:
+            context: ../webstore
+        container_name: webstore
+        
+        ports:
+        - "8070:8080"
+        networks:
+        - testnet
+        depends_on:
+        - customer
+        - product
+        - order
+        - quote
+        - payment
+    customer:
+        image: egapm/docker-compose-kubernetes:customer
+        build:
+            context: ../Modules/WebStoreCustomers/
+        container_name: customer 
+        networks:
+        - testnet
+        depends_on:
+        - webstoredb 
+    gateway:
+        image: egapm/docker-compose-kubernetes:gateway
+        build:
+            context: ../gateway/
+        container_name: gateway 
+        networks:
+        - testnet
+    order:
+        image: egapm/docker-compose-kubernetes:order
+        build:
+            context: ../Modules/WebStoreCheckout/Order/
+        container_name: order 
+        networks:
+        - testnet
+        depends_on:
+        - webstoredb 
+    payment:
+        image: egapm/docker-compose-kubernetes:payment
+        build:
+            context: ../Modules/WebStoreCheckout/Payment/
+        container_name: payment 
+        networks:
+        - testnet
+        depends_on:
+        - gateway 
+    product:
+        image: egapm/docker-compose-kubernetes:product
+        build:
+            context: ../Modules/WebStoreProducts/
+        container_name: product 
+        networks:
+        - testnet
+        depends_on:
+        - webstoredb 
+    quote:
+        image: egapm/docker-compose-kubernetes:quote
+        build:
+            context: ../Modules/WebStoreCheckout/Quote/
+        container_name: quote 
+        networks:
+        - testnet
+        depends_on:
+        - webstoredb 
+    webstoredb:
+        image: egapm/new-webstore:mysql
+        restart: always
+        container_name: webstoredb 
+        volumes:
+        - ./mysqlDocker:/docker-entrypoint-initdb.d
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: root
+        networks:
+        - testnet
+
+networks:
+  testnet:

@@ -1,0 +1,9 @@
+
+*.class
+*.class
+webstore\target
+gateway\target
+Modules\WebStoreProducts\target
+Modules\WebStoreCheckout\Order\target
+Modules\WebStoreCheckout\Payment\target
+Modules\WebStoreCheckout\Quote\target
