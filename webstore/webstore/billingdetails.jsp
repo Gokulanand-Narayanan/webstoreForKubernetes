@@ -164,12 +164,13 @@ ng\:form {
 
 			JSONObject result = new JSONObject();
 			result.put("cartId", cartId);
-			//remove it when using jboss server
-			//result.put("cart", cartItems);
-			//result.put("user", userJObj);
-			//result.put("billing", billingJObj);
-			//result.put("shipping", billingJObj);
-			//result.put("checkoutMethod", "COD");
+			if(!ServerUris.ENABLE_KUBCTL_CODE){
+				result.put("cart", cartItems);
+				result.put("user", userJObj);
+				result.put("billing", billingJObj);
+				result.put("shipping", billingJObj);
+				result.put("checkoutMethod", "COD");
+			}
 
 			session.removeAttribute("cartItems");
 			JSONObject jsonParams = result;

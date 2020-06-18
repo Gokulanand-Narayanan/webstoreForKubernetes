@@ -1,7 +1,7 @@
 ##################################################################################################
 #************************************ DataSource Configuration **********************************#
 ##################################################################################################
-DATA_SOURCE_JNDI_JBOSS=java:/onlineCartDS
+DATA_SOURCE_JNDI_JBOSS=java:/ProdustDS
 ##################################################################################################
 #********************************** Database Query Configuration ********************************#
 ##################################################################################################
@@ -13,4 +13,14 @@ STATMENT_QUERY=SELECT id, customer_group, prefix, first_name, middle_name, last_
 USER_AGENT=Mozilla/5.0
 GET_URL_1=http://customer/validation/validateuser.jsp
 GET_URL_2=http://customer/customers/sendshippingdetails.jsp
-
+##################################################################################################
+#************************************* JMS Configuration ****************************************#
+##################################################################################################
+DEFAULT_MESSAGE=customer object contains details
+DEFAULT_CONNECTION_FACTORY=jms/RemoteConnectionFactory
+DEFAULT_DESTINATION=jms/queue/paymentProcessingQueue
+DEFAULT_USERNAME=admina
+DEFAULT_PASSWORD=admina@123
+INITIAL_CONTEXT_FACTORY=org.jboss.naming.remote.client.InitialContextFactory
+PROVIDER_URL=http-remoting://localhost:4040
+DEFAULT_MESSAGE_COUNT=1

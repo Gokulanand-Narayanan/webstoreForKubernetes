@@ -19,12 +19,6 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <dependent-module archiveName="persistenceapi-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/persistenceapi/persistenceapi">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="hibernate-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/hibernate/hibernate">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
                                 
         
         

@@ -90,6 +90,10 @@
 	
 	catch (Exception e){} */
 
+%>
+	
+
+<%
 		String catId = request.getParameter("cat");
 		/*String productDomainUri = "http://"+"products.apm.eginnovations.com"+":4040";
 		String PRODUCT_SERVER_URI = productDomainUri + "/products";
@@ -113,13 +117,12 @@
 		try {
 			jsonObj.put("id", product_id);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("url String = "+urlString);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(urlString).queryParam("params", jsonObj);	
 		HttpEntity<?> entity = new HttpEntity<>(headers);
-		System.out.println("urlString Url = "+UriComponentsBuilder.fromHttpUrl(urlString).queryParam("params", jsonObj).build().toUri());
+		//System.out.println("urlString Url = "+UriComponentsBuilder.fromHttpUrl(urlString).queryParam("params", jsonObj).build().toUri());
 		HttpEntity<String> returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
 		
 		JSONObject returnJsonObj = null;

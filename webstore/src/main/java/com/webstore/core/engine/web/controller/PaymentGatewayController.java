@@ -46,31 +46,29 @@ public class PaymentGatewayController extends HttpServlet {
 			JSONObject jsonParams = new JSONObject();
 
 			jsonParams.put("gateway", gateway);
-			System.out.println("Payment Url = " + UriComponentsBuilder
-					.fromHttpUrl(ServerUris.PAYMENT_SERVER_URI + "/payment/" + URIConstants.MAKE_PAYMENT)
-					.queryParam("params", jsonParams).build().toUri());
 
 			UriComponentsBuilder builder = UriComponentsBuilder
 					.fromHttpUrl(ServerUris.PAYMENT_SERVER_URI + "/payment/" + URIConstants.MAKE_PAYMENT)
 					.queryParam("params", jsonParams);
+			
+			System.out.println("Payment Url = " +builder.toString());
+			
 			HttpEntity<?> entity = new HttpEntity<>(headers);
 			HttpEntity<String> returnString = null;
-//			returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
 			try {
 				returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
-
 			} catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-				System.out.println("--------------------------->" + httpClientOrServerExc.getStatusCode());
-				if (HttpStatus.INTERNAL_SERVER_ERROR.equals(httpClientOrServerExc.getStatusCode())) {
+				System.out.println("--------------------------->" + httpClientOrServerExc.getStatusCode()+"   "+httpClientOrServerExc.getStatusCode().is5xxServerError());
+				if (httpClientOrServerExc.getStatusCode().is5xxServerError()) {
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					response.getWriter().print("Http Status 500 - Internal Server Error");
 				}
-				
 			}
-			response.getWriter().print(returnString.getBody());
+			if (returnString != null) {
+				response.getWriter().print(returnString.getBody());
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 	}
 } 

@@ -10,6 +10,150 @@ public class ProductModel {
 			
 		}
 		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		verifyProduct();
+	}
+	
+	public void verifyProduct(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(379);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		getProduct();
+	}
+	
+	public void getProduct(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		getProductDescription();
+	}
+	
+	public void getProductDescription(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		getDetailProduct();
+	}
+	
+	public void getDetailProduct(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		makeProductAvailable();
+	}
+	
+	public void makeProductAvailable(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checkProductStock();
+	}
+	
+	public void checkProductStock(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checkProductPrice();
+	}
+	
+	public void checkProductPrice(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checkMarketProductPrice();
+	}
+	
+	public void checkMarketProductPrice(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checktProductFeatures();
+	}
+	
+	public void checktProductFeatures(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checktcartAvailbility();
+	}
+	
+	public void checktcartAvailbility(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		verifyAddress();
+	}
+	
+	public void verifyAddress(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(279);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		getDiliveryAddress();
+	}
+	
+	public void getDiliveryAddress(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(281);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		checkAccount();
+	}
+	
+	public void checkAccount(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(285);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		makePayment();
+	}
+	
+	public void makePayment(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(265);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		getProductExprieDate();
+	}
+	
+	public void getProductExprieDate(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(265);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
+		verifyFinalProduct();
+	}
+	
+	public void verifyFinalProduct(){
+		long startTime = System.currentTimeMillis();
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(265);stop>System.nanoTime();) {
+			
+		}
+		System.out.println("ProductController.processProduct took "+(System.currentTimeMillis()-startTime));
         addProductsInCart();
 	}
 	
@@ -24,7 +168,7 @@ public class ProductModel {
 
 	private int getCartId(int min, int max) {
 		long startTime = System.currentTimeMillis();
-		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(261);stop>System.nanoTime();) {
+		for (long stop=System.nanoTime()+TimeUnit.MILLISECONDS.toNanos(491);stop>System.nanoTime();) {
 			
 		}
 		System.out.println("ProductController.getCartId took "+(System.currentTimeMillis()-startTime));

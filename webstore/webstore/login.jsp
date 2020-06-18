@@ -31,7 +31,7 @@
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(ServerUris.CUSTOMER_SERVER_URI+URIConstants.GET_CUSTOMER_BY_EMAIL)
 					.queryParam("params", obj);	
 			HttpEntity<?> entity = new HttpEntity<>(headers);
-			System.out.println("urlString Url = "+ UriComponentsBuilder.fromHttpUrl(ServerUris.CUSTOMER_SERVER_URI+URIConstants.GET_CUSTOMER_BY_EMAIL).queryParam("params", obj).build().toUri());
+			//System.out.println("urlString Url = "+ UriComponentsBuilder.fromHttpUrl(ServerUris.CUSTOMER_SERVER_URI+URIConstants.GET_CUSTOMER_BY_EMAIL).queryParam("params", obj).build().toUri());
 			HttpEntity<String> returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
 				
 			
@@ -50,6 +50,7 @@
 
 			HttpSession hsession = request.getSession(true);
 			hsession.setAttribute("CustomerObj",returnJsonObj);
+			
 			//request.getRequestDispatcher("/home.jsp").forward(request, response);
 			response.sendRedirect("home.jsp");
 		

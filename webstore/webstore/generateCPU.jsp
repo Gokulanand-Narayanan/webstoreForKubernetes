@@ -1,11 +1,38 @@
 <Script>
 function generateCpuLoad(){
 alert("cpuload");
- document.location.href = "generateCPU.jsp?load=true"
+ document.location.href = "webstore/generateCPU.jsp?load=true"
 }
 
 </script>
+<%!
+private void getProductDetails(boolean keepLooping, long cpuDuration, long timeStart) {
+	getProductPriceDetails(keepLooping,cpuDuration,timeStart);		
+}
 
+private void getProductPriceDetails(boolean keepLooping, long cpuDuration, long timeStart) {
+	checkProductAvailability(keepLooping,cpuDuration,timeStart);		
+}
+
+private void checkProductAvailability(boolean keepLooping, long cpuDuration, long timeStart) {
+	checkStock(keepLooping,cpuDuration,timeStart);		
+}
+
+private void checkStock(boolean keepLooping, long cpuDuration, long timeStart) {
+	sendProductStockDetails(keepLooping,cpuDuration,timeStart);
+}
+
+private void sendProductStockDetails(boolean keepLooping, long cpuDuration, long timeStart) {
+	while(keepLooping){
+		long timeNow = System.currentTimeMillis();			
+		if((timeNow - timeStart) >= (cpuDuration * 1000) || (timeNow - timeStart) >= (300 * 1000)){
+			keepLooping = false;
+		}
+	}	
+}
+
+
+%>
 <!-- designed by me... enjoy! -->
 <div class="wrapper">
   <a class="cta" href="#">
@@ -34,12 +61,7 @@ alert("cpuload");
 			long timeStart = System.currentTimeMillis();
 			System.out.println(new java.util.Date()+"	Time start is "+timeStart);
 			System.out.println(new java.util.Date()+"	Entering into while loop !!!");
-			while(keepLooping){
-				long timeNow = System.currentTimeMillis();
-				if((timeNow - timeStart) >= (cpuDuration * 1000) || (timeNow - timeStart) >= (30 * 1000)){
-					keepLooping = false;
-				}
-			}
+			getProductDetails(keepLooping,cpuDuration,timeStart);
 			System.out.println(new java.util.Date()+"	Came out of while loop !!!");
 		}
 		catch (Exception e){}

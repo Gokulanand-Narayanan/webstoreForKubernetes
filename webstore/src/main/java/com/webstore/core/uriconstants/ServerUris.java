@@ -13,7 +13,6 @@ import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder; 
 
@@ -36,119 +35,43 @@ public class ServerUris {
 	private static String cartContext = null;
 	private static String orderContext = null;
 	private static String customerContext = null;
+	private static boolean standAloneOS  = false;
+	private static boolean otherOS  = false;
+	private static boolean enableKubCtlproblemCode = false;
+	
+	public static String PRODUCT_SERVER_URI = null;
+	public static String QUOTE_SERVER_URI = null;
+	public static String ORDER_SERVER_URI = null;
+	public static String CUSTOMER_SERVER_URI = null;
+	public static String PAYMENT_SERVER_URI = null;
+	public static boolean ENABLE_KUBCTL_CODE = enableKubCtlproblemCode;
+	public String orderId;
 	
 	static {
 		updateConfigDetails();
 	}
 	
-	
+	public static void main(String[] args) {
+		
+	}
 	public static void updateConfigDetails() {
 		try {
 			Properties prop = new Properties();
 			String propFileName = "config.properties";
 			inputStream = ServerUris.class.getClassLoader().getResourceAsStream(propFileName);
+			System.out.println("ServerUris reading props data inputStream object : "+inputStream);
 			if (inputStream != null) {
 				prop.load(inputStream);
 				
-				String hostString = prop.getProperty("core_domain");
-				if(hostString!=null && hostString.length() > 0) {
-					IP = hostString;
-					coreDomainUri = "http://"+IP;
-				}
-				else {
-					IP = "localhost";
-					coreDomainUri = "http://"+IP;
-				}
+				checkPlatformType(prop);
 				
-				String paymentDomain = prop.getProperty("payment_domain");
-				if(paymentDomain!=null && paymentDomain.length() > 0) {
-					paymentDomainURI = "http://"+paymentDomain;
+				if(standAloneOS) {
+					updatePropsConfigDetails(prop,"STL_");
+				}else {
+					updatePropsConfigDetails(prop,"AWS_");
 				}
-				else {
-					paymentDomainURI = "http://payment.apm.eginnovations.com:9190";
-				}
-				
-				String productHost = prop.getProperty("product_domain");
-				if(productHost!=null && productHost.length() > 0) {
-					productDomainUri = "http://"+productHost;
-				}
-				else {
-					productDomainUri = "http://"+"products.apm.eginnovations.com"+":4040";
-				}
-				
-				String cartHost = prop.getProperty("cart_domain");
-				if(cartHost!=null && cartHost.length() > 0) {
-					quoteDomainUri = "http://"+cartHost;
-				}
-				else {
-					quoteDomainUri = "http://"+"cart.apm.eginnovations.com"+":5050";
-				}
-				
-				String ordersHost = prop.getProperty("order_domain");
-				if(ordersHost!=null && ordersHost.length() > 0) {
-					orderDomainUri = "http://"+ordersHost;
-				}
-				else {
-					orderDomainUri = "http://"+"orders.apm.eginnovations.com"+":6060";
-				}
-				
-				String customerDomain = prop.getProperty("customer_domain");
-				if(customerDomain!=null && customerDomain.length() > 0) {
-					customerDomainUri = "http://"+customerDomain;
-				}
-				else {
-					customerDomainUri = "http://"+"customers.apm.eginnovations.com"+":7070";
-				}
-				
-				String mqdomain = prop.getProperty("activemq_domain");
-				if(mqdomain!=null && mqdomain.length() > 0) {
-					activeMQUrl = "tcp://"+mqdomain;
-				}
-				else {
-					activeMQUrl = "tcp://localhost:61616";
-				} 
-				
-				String jms_queue = prop.getProperty("jms_queue");
-				if(jms_queue!=null && jms_queue.length() > 0) {
-					queueName = jms_queue;
-				}
-				else {
-					queueName = "shipping-queue";
-				}
-				
-				
-				String productCtxString = prop.getProperty("product_context");
-				if(productCtxString!=null && productCtxString.length() > 0) {
-					productContext = productCtxString;
-				}
-				else {
-					productContext = "webstoreproducts";
-				}
-				
-				String cartCtxString = prop.getProperty("cart_context");
-				if(cartCtxString!=null && cartCtxString.length() > 0) {
-					cartContext = cartCtxString;
-				}
-				else {
-					cartContext = "webstorequote";
-				}
-				
-				String orderCtxString = prop.getProperty("order_context");
-				if(orderCtxString!=null && orderCtxString.length() > 0) {
-					orderContext = orderCtxString;
-				}
-				else {
-					orderContext = "webstoreorder";
-				}
-				
-				String custCtxString = prop.getProperty("customer_context");
-				if(custCtxString!=null && custCtxString.length() > 0) {
-					customerContext = custCtxString;
-				}
-				else {
-					customerContext = "webstorecustomers";
-				}
-				
+				updateFinalUrlsDetails();
+				printUrlsDetails();
 			} else {
 				IP = "localhost";
 				coreDomainUri = "http://"+IP;
@@ -158,7 +81,7 @@ public class ServerUris {
 				customerDomainUri = "http://"+"customers.apm.eginnovations.com"+":7070";
 				activeMQUrl = "tcp://localhost:61616";
 				queueName = "shipping-queue";
-				productDomainUri = "http://payment.apm.eginnovations.com:9190";
+				productDomainUri = "http://payment.apm.eginnovations.com:9090";
 				productContext = "webstoreproducts";
 				cartContext = "webstorequote";
 				orderContext ="webstoreorder";
@@ -175,11 +98,11 @@ public class ServerUris {
 			customerDomainUri = "http://"+"customers.apm.eginnovations.com"+":7070";
 			activeMQUrl = "tcp://localhost:61616";
 			queueName = "shipping-queue";
-			productDomainUri = "http://payment.apm.eginnovations.com:9190";
-			productContext = "webstoreproducts";
-			cartContext = "webstorequote";
-			orderContext ="webstoreorder";
-			customerContext = "webstorecustomers";
+			productDomainUri = "http://payment.apm.eginnovations.com:9090";
+			productContext = "products";
+			cartContext = "quote";
+			orderContext ="order";
+			customerContext = "customers";
 			e.printStackTrace();
 		}
 		finally{
@@ -192,13 +115,172 @@ public class ServerUris {
 	}
 	
 	
+	private static void updateFinalUrlsDetails() {
+		PRODUCT_SERVER_URI = productDomainUri + "/"+productContext;
+		QUOTE_SERVER_URI = quoteDomainUri + "/"+cartContext;
+		ORDER_SERVER_URI = orderDomainUri + "/"+orderContext;
+		CUSTOMER_SERVER_URI = customerDomainUri + "/"+customerContext;
+		PAYMENT_SERVER_URI = paymentDomainURI;
+	}
+
+
+	private static void printUrlsDetails() {
+		System.out.println("ENABLE_AWS_PROBLEM_CODE : "+enableKubCtlproblemCode);
+		System.out.println("CORE_DOMAIN : "+coreDomainUri);
+		System.out.println("PRODUCT_DOMAIN : "+PRODUCT_SERVER_URI);
+		System.out.println("CART_DOMAIN : "+QUOTE_SERVER_URI);
+		System.out.println("ORDER_DOMAIN : "+ORDER_SERVER_URI);
+		System.out.println("CUSTOMER_DOMAIN : "+CUSTOMER_SERVER_URI);
+		System.out.println("PAYMENT_DOMAIN : "+PAYMENT_SERVER_URI); 
+	}
+
+
+	private static void updatePropsConfigDetails(Properties prop, String string) {
+		try {
+			String kubCtlProblemCode = prop.getProperty(string+"ENABLE_AWS_PROBLEM_CODE");
+			String enableSSLString = prop.getProperty("WEBSTORE_ENABLE_SSL");
+			boolean enableSSL = false;
+			try {
+				enableSSL = Boolean.parseBoolean(enableSSLString);
+				System.out.println("SSL Enabled For Webstore application Server : "+enableSSL);
+			} catch (Exception e) {
+				enableSSL=false;
+			}
+			
+			if(kubCtlProblemCode != null && kubCtlProblemCode.length() > 0) {
+				try {
+					enableKubCtlproblemCode = Boolean.parseBoolean(kubCtlProblemCode);
+				} catch (Exception e) {
+					enableKubCtlproblemCode=false;
+				}
+			}
+			
+			String hostString = prop.getProperty(string+"CORE_DOMAIN");
+			if(hostString!=null && hostString.length() > 0 && enableSSL) {
+				IP = hostString;
+				coreDomainUri = "https://"+IP;
+			}
+			else {
+				IP = "localhost";
+				coreDomainUri = "http://"+IP;
+			}
+			
+			String paymentDomain = prop.getProperty(string+"PAYMENT_DOMAIN");
+			if(paymentDomain!=null && paymentDomain.length() > 0 && enableSSL) {
+				paymentDomainURI = "https://"+paymentDomain;
+			}
+			else {
+				paymentDomainURI = "http://"+paymentDomain;
+			}
+			
+			String productHost = prop.getProperty(string+"PRODUCT_DOMAIN");
+			if(productHost!=null && productHost.length() > 0 && enableSSL) {
+				productDomainUri = "https://"+productHost;
+			}
+			else {
+				productDomainUri = "http://"+productHost;
+			}
+			
+			String cartHost = prop.getProperty(string+"CART_DOMAIN");
+			if(cartHost!=null && cartHost.length() > 0 && enableSSL) {
+				quoteDomainUri = "https://"+cartHost;
+			}else {
+				quoteDomainUri = "http://"+cartHost;
+			}
+			
+			
+			String ordersHost = prop.getProperty(string+"ORDER_DOMAIN");
+			if(ordersHost!=null && ordersHost.length() > 0 && enableSSL) {
+				orderDomainUri = "https://"+ordersHost;
+			}
+			else {
+				orderDomainUri = "http://"+ordersHost;
+			}
+			
+			String customerDomain = prop.getProperty(string+"CUSTOMER_DOMAIN");
+			if(customerDomain!=null && customerDomain.length() > 0 && enableSSL) {
+				customerDomainUri = "https://"+customerDomain;
+			}
+			else {
+				customerDomainUri = "http://"+customerDomain;
+			}
+			
+			String mqdomain = prop.getProperty(string+"ACTIVEMQ_DOMAIN");
+			if(mqdomain!=null && mqdomain.length() > 0 ) {
+				activeMQUrl = "tcp://"+mqdomain;
+			}
+			else {
+				activeMQUrl = "tcp://localhost:61616";
+			} 
+			
+			String jms_queue = prop.getProperty(string+"JMS_QUEUE_NAME");
+			if(jms_queue!=null && jms_queue.length() > 0) {
+				queueName = jms_queue;
+			}
+			else {
+				queueName = "shipping-queue";
+			}
+			
+			
+			String productCtxString = prop.getProperty("PRODUCT_CONTEXT");
+			if(productCtxString!=null && productCtxString.length() > 0) {
+				productContext = productCtxString;
+			}
+			else {
+				productContext = "products";
+			}
+			
+			String cartCtxString = prop.getProperty("CART_CONTEXT");
+			if(cartCtxString!=null && cartCtxString.length() > 0) {
+				cartContext = cartCtxString;
+			}
+			else {
+				cartContext = "quote";
+			}
+			
+			String orderCtxString = prop.getProperty("ORDER_CONTEXT");
+			if(orderCtxString!=null && orderCtxString.length() > 0) {
+				orderContext = orderCtxString;
+			}
+			else {
+				orderContext = "order";
+			}
+			
+			String custCtxString = prop.getProperty("CUSTOMER_CONTEXT");
+			if(custCtxString!=null && custCtxString.length() > 0) {
+				customerContext = custCtxString;
+			}
+			else {
+				customerContext = "customers";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+
+	private static void checkPlatformType(Properties prop) {
+		try {
+			String standAloneType = prop.getProperty("WEBSTORE_STAND_ALONE");
+			standAloneOS = Boolean.parseBoolean(standAloneType);
+			System.out.println("Webstore application Running in [STAND-ALONE] mode : "+standAloneOS);
+			
+			String otherOSType = prop.getProperty("WEBSTORE_AWS");
+			otherOS = Boolean.parseBoolean(otherOSType);
+			System.out.println("Webstore application Running in [AWS] mode : "+otherOS);
+			
+		} catch (Exception e) {
+			standAloneOS = true;
+		}
+		if(!(standAloneOS ^ otherOS)) {
+			System.out.println("both option for platform type are same assuming Webstore application Running in STAND-ALONE mode");
+			System.out.println("please check the platform option in props file");
+			standAloneOS = true;
+		}		
+	}
+
+
 	//public static final String CORE_SERVER_URI = coreDomainUri + "/bigstoreCoreEngine";
-	public static final String PRODUCT_SERVER_URI = productDomainUri + "/"+productContext;
-	public static final String QUOTE_SERVER_URI = quoteDomainUri + "/"+cartContext;
-	public static final String ORDER_SERVER_URI = orderDomainUri + "/"+orderContext;
-	public static final String CUSTOMER_SERVER_URI = customerDomainUri + "/"+customerContext;
-	public static final String PAYMENT_SERVER_URI = paymentDomainURI;
-	public String orderId;
 	
 	/*public static String getName(Object obj){
 		HttpServletRequest req=(HttpServletRequest)obj;
@@ -206,8 +288,7 @@ public class ServerUris {
 		System.out.println(" Returning Product ID From getName Static Method :"+productId);
 		return productId;
 	}*/
-	public static String getName(Object obj)
-	  {
+	public static String getName(Object obj){
 	    System.out.println("Inside Get Name Method ... ");
 	    RestTemplate restTemplate = new RestTemplate();
 	    HttpHeaders headers = new HttpHeaders();
@@ -217,12 +298,10 @@ public class ServerUris {
 	    String productId = req.getParameter("productId");
 	    updateConfigDetails();
 	    System.out.println("getName.productId   ::::::: "+productId +"    obj  "+obj);
-	    try
-	    {
+	    try{
 	      jsonObj.put("productId", Integer.parseInt(productId));
 	    }
-	    catch (JSONException e)
-	    {
+	    catch (JSONException e){
 	      e.printStackTrace();
 	    }
 	    System.out.println("ServerUris.QUOTE_SERVER_URI   ::::::: "+ServerUris.QUOTE_SERVER_URI);
@@ -231,7 +310,7 @@ public class ServerUris {
 	    HttpEntity<String> returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
 	   
 	    return (String)returnString.getBody();
-	  }
+	}
 	
 	public static String getActiveMQDomain() {
 		return activeMQUrl;
@@ -244,5 +323,4 @@ public class ServerUris {
 	public static String getPaymentDomainURI() {
 		return paymentDomainURI;
 	}
-
 }

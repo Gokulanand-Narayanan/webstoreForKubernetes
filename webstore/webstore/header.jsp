@@ -1,31 +1,27 @@
 <%@ page import="org.json.*"%>
 <%@ page import="java.util.*"%>
 <%
-	 	/* try{
+		/* try{
 			Random random = new Random();
 			int min = 2000;
 			int max = 2500;
 			int randomNumber = random.nextInt(max + 1 - min) + min;
-			out.println(randomNumber);
-			 try{
-				throw new Exception();
-			}catch(Exception ee){
-				ee.printStackTrace();
-			} 
+			//out.println(randomNumber);
 			 Thread.sleep(randomNumber);
 		}
 		catch(Exception ex){
 
-		} 
-*/
+		} */
 		JSONObject obj =(JSONObject)request.getSession().getAttribute("CustomerObj");
-
+		System.out.println("************** obj" +obj);
 		String firstName = "Sign Up | Sign In"; 
 		
 		if(obj!=null){
 			try{
 				firstName = obj.getString("firstName");
-			}catch(Exception e){}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			
 		}
 		//out.println()
@@ -71,13 +67,58 @@
 									<li><a href="home.jsp?cat=23">Baby Care</a></li>
 								</ul>
 							</li>
+						</ul>
+					</li>
+					<li class="dropdown-mainmenu">
+						<a href="category.jsp" >Demo Scenarios<span class="caret"></span></a>
+			    		<ul class="dropdown-menu multi-level ng-binding" role="menu" aria-labelledby="dropdownMenu" ng-bind-html="htmlString">
 							<li class="dropdown-submenu">
-								<a href="home.jsp?cat=24">Problem Scenarios</a>
+								<a href="home.jsp?cat=25">Frontend</a>
 								<ul class="dropdown-menu">
-									<li><a href="cpuUtilization.jsp?cat=25">High CPU</a></li>
-									<li><a href="frontendslow.jsp?cat=26">Frontend Slow</a></li>
+									<li><a href="home.jsp?">Excessive Image Resources</a></li>
+									<li class="dropdown-submenu">
+										<a href="home.jsp?cat=26">Ajax</a>
+										<ul class="dropdown-menu">
+											<li><a href="syncajax.jsp">Synchronous Ajax</a></li>
+											<li><a href="manyajax.jsp">Fast & Parallel Ajax</a></li>
+											<li><a href="uncachedajax.jsp">Un Cached Ajax</a></li>
+											<li><a href="heavycontentajax.jsp">Heavy Response Content</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>			
+							<li class="dropdown-submenu">
+								<a href="home.jsp?cat=25">Backend</a>
+								<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+										<a href="home.jsp?cat=26">Java/JVM</a>
+										<ul class="dropdown-menu">
+											<li><a href="hicpu.jsp?">High CPU</a></li>
+											<li><a href="slowPojo.jsp">Slow Java Method</a></li>
+											<li><a href="deadloack.jsp">Thread Deadlock</a></li>
+											<li><a href="highGcThread.jsp">High GC (garbage collection)</a></li>
+										</ul>
+									</li>
+									<li class="dropdown-submenu">
+										<a href="home.jsp?cat=26">SQL</a>
+										<ul class="dropdown-menu">
+											<li><a href="excessiveSql.jsp">Excessive SQL (N+1 anti-pattern)</a></li>
+											<li><a href="tablelock.jsp">Table Lock</a></li>
+										</ul>
+									</li>
+									<li class="dropdown-submenu">
+										<a href="home.jsp?cat=26">Web/Servlet Container</a>
+										<ul class="dropdown-menu">
+											<li><a href="connectionPool.jsp">Connection Pool (DataSource) Exhaustion</a></li>
+											<li><a href="threadpoollow.jsp">Thread Pool Exhaustion</a></li>
+											<li><a href="ejbpoollow.jsp">EJB Pool Exhaustion</a></li>
+											<li><a href="jmsQueue.jsp">JMS queue is clogged</a></li>
+											<li><a href="servletprocessing.jsp">Servlet Processing Issues</a></li>
+										</ul>
+									</li>
 								</ul>
 							</li>
+											
 						</ul>
 					</li>
 					

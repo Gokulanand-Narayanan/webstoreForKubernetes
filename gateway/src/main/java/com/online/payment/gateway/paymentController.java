@@ -26,7 +26,7 @@ public class paymentController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("called /master from paymentController - gateway");
+		
 		return "Could not get a timely response from the payment gateway!";
 	}
 	
@@ -38,7 +38,6 @@ public class paymentController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("called /mastercard from masterCardPaymentGateway - gateway");
 		return "Could not get a timely response from the payment gateway!";
 	}
 }

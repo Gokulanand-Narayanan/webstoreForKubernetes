@@ -30,6 +30,7 @@
     -->
     <link rel="stylesheet" href="css/styles.css">
 
+
     <!-- <script type="application/javascript" src="js/controller.js"></script> -->
   </head>
   
@@ -68,6 +69,7 @@
 	
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(ServerUris.PRODUCT_SERVER_URI+URIConstants.GET_CATEGORY).queryParam("params", jsonObj);	
 		HttpEntity<?> entity = new HttpEntity<>(headers);
+		//System.out.println("Product  Url = "+UriComponentsBuilder.fromHttpUrl(ServerUris.PRODUCT_SERVER_URI+URIConstants.GET_CATEGORY).queryParam("params", jsonObj).build().toUri());
 		HttpEntity<String> returnString = restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, String.class);
 		
 		JSONObject returnJsonObj = null;

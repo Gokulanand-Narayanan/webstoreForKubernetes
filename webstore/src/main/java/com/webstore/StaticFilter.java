@@ -14,10 +14,12 @@ public class StaticFilter implements Filter {
 
 	FilterConfig config; 
 
+	@Override
 	public void init(FilterConfig config) throws ServletException {
 		this.config = config;
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
 		String slowParam = req.getParameter("slow");
 		if(slowParam != null){
@@ -53,6 +55,7 @@ public class StaticFilter implements Filter {
 		chain.doFilter(req, res);
 	}
 
+	@Override
 	public void destroy() {
 		
 	}

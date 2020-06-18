@@ -14,15 +14,15 @@
 EnginePropertyReader engineProps = new EnginePropertyReader();
 Properties enginePropsObj = engineProps.getEnginePropsObj();
 String getUrl = enginePropsObj.getProperty("GET_URL");
-String postUrl = enginePropsObj.getProperty("POST_URL");
+//String postUrl = enginePropsObj.getProperty("POST_URL");
 String userAgent = enginePropsObj.getProperty("USER_AGENT");
-String postParams = enginePropsObj.getProperty("POST_PARAMS");
+//String postParams = enginePropsObj.getProperty("POST_PARAMS");
 
 out.println("<h1>process engine server send the request to : <h1>"+getUrl);
 out.println(EngineCallerService.processCart(getUrl.trim(),userAgent.trim()));
 
-out.println("<h1>process engine server send the request to : <h1>"+postUrl);
-out.println(EngineCallerService.processAutrentication(postUrl.trim(), userAgent.trim(), postParams.trim()));
+//out.println("<h1>process engine server send the request to : <h1>"+postUrl);
+//out.println(EngineCallerService.processAutrentication(postUrl.trim(), userAgent.trim(), postParams.trim()));
 %>
 </body>
 </html>

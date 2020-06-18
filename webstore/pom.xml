@@ -6,20 +6,26 @@
   <packaging>war</packaging>
   <properties>
 	  <org.springframework-version>4.1.4.RELEASE</org.springframework-version>
-	  <hibernate.version>4.2.16.Final</hibernate.version>
+	  <hibernate.version>4.3.5.Final</hibernate.version>
   </properties>
     
   <dependencies>
-<!--   	<dependency>
+  	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-jdbc</artifactId>    
 		<version>4.1.4.RELEASE</version>
 	</dependency>
- -->	
+	
 	<dependency>
 		<groupId>mysql</groupId>
 		<artifactId>mysql-connector-java</artifactId>
 		<version>5.1.32</version>
+	</dependency>
+		
+	<dependency>
+	    <groupId>javax.jms</groupId>
+	    <artifactId>javax.jms-api</artifactId>
+	    <version>2.0</version>
 	</dependency>
 		
   	<dependency>
@@ -79,11 +85,11 @@
   		<artifactId>spring-oxm</artifactId>
   		<version>4.0.3.RELEASE</version>
   	</dependency>
-  	<!-- <dependency>
+  	<dependency>
   		<groupId>org.codehaus.jackson</groupId>
   		<artifactId>jackson-mapper-asl</artifactId>
   		<version>1.9.10</version>
-  	</dependency> -->
+  	</dependency>
   	<dependency>
   		<groupId>log4j</groupId>
   		<artifactId>log4j</artifactId>
@@ -140,6 +146,11 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
   		<!-- Hibernate -->
+  		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -170,17 +181,6 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.10</version>
 		</dependency>
-		<!--  Spring ActiveMQ -->
-		<dependency>
-            <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-spring</artifactId>
-            <version>5.13.3</version>
-        </dependency>
-        <!-- <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jms</artifactId>
-            <version>4.1.4.RELEASE</version>
-        </dependency> -->
   </dependencies>
   <build>
   	<finalName>${project.artifactId}</finalName>
@@ -190,8 +190,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       
