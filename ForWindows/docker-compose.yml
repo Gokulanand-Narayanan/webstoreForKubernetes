@@ -3,7 +3,7 @@ services:
     webstore:
         image: egapm/docker-compose-kubernetes:webstore
         build:
-            context: ..\webstore
+            context: ..\Modules\webstore
         container_name: webstore
         
         ports:
@@ -19,7 +19,7 @@ services:
     customer:
         image: egapm/docker-compose-kubernetes:customer
         build:
-            context: ..\Modules\WebStoreCustomers\
+            context: ..\Modules\customers\
         container_name: customer 
         networks:
         - testnet
@@ -28,14 +28,14 @@ services:
     gateway:
         image: egapm/docker-compose-kubernetes:gateway
         build:
-            context: ..\gateway\
+            context: ..\Modules\gateway\
         container_name: gateway 
         networks:
         - testnet
     order:
         image: egapm/docker-compose-kubernetes:order
         build:
-            context: ..\Modules\WebStoreCheckout\Order\
+            context: ..\Modules\order\
         container_name: order 
         networks:
         - testnet
@@ -44,7 +44,7 @@ services:
     payment:
         image: egapm/docker-compose-kubernetes:payment
         build:
-            context: ..\Modules\WebStoreCheckout\Payment\
+            context: ..\Modules\payment\
         container_name: payment 
         networks:
         - testnet
@@ -53,7 +53,7 @@ services:
     product:
         image: egapm/docker-compose-kubernetes:product
         build:
-            context: ..\Modules\WebStoreProducts\
+            context: ..\Modules\products\
         container_name: product 
         networks:
         - testnet
@@ -62,7 +62,7 @@ services:
     quote:
         image: egapm/docker-compose-kubernetes:quote
         build:
-            context: ..\Modules\WebStoreCheckout\Quote\
+            context: ..\Modules\quote\
         container_name: quote 
         networks:
         - testnet

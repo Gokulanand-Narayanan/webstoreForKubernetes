@@ -1,1 +1,0 @@
-jVoiD Attributes Resources

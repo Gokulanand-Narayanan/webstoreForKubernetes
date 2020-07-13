@@ -1,11 +1,10 @@
 version: '3'
 services:
     webstore:
-        image: egapm/docker-compose-kubernetes:webstore
+        image: egapm/microsvcapp:webstore
         build:
-            context: ../Modules/webstore
+            context: Modules\webstore\
         container_name: webstore
-        
         ports:
         - "8070:8080"
         networks:
@@ -17,52 +16,52 @@ services:
         - quote
         - payment
     customer:
-        image: egapm/docker-compose-kubernetes:customer
+        image: egapm/microsvcapp:customers
         build:
-            context: ../Modules/customers/
+            context: Modules\customers\
         container_name: customer 
         networks:
         - testnet
         depends_on:
         - webstoredb 
     gateway:
-        image: egapm/docker-compose-kubernetes:gateway
+        image: egapm/microsvcapp:gateway
         build:
-            context: ../Modules/gateway/
+            context: Modules\gateway\
         container_name: gateway 
         networks:
         - testnet
     order:
-        image: egapm/docker-compose-kubernetes:order
+        image: egapm/microsvcapp:order
         build:
-            context: ../Modules/order/
+            context: Modules\order\
         container_name: order 
         networks:
         - testnet
         depends_on:
         - webstoredb 
     payment:
-        image: egapm/docker-compose-kubernetes:payment
+        image: egapm/microsvcapp:payment
         build:
-            context: ../Modules/payment/
+            context: Modules\payment\
         container_name: payment 
         networks:
         - testnet
         depends_on:
         - gateway 
     product:
-        image: egapm/docker-compose-kubernetes:product
+        image: egapm/microsvcapp:product
         build:
-            context: ../Modules/products/
+            context: Modules\products\
         container_name: product 
         networks:
         - testnet
         depends_on:
         - webstoredb 
     quote:
-        image: egapm/docker-compose-kubernetes:quote
+        image: egapm/microsvcapp:quote
         build:
-            context: ../Modules/quote/
+            context: Modules\quote\
         container_name: quote 
         networks:
         - testnet
@@ -73,7 +72,7 @@ services:
         restart: always
         container_name: webstoredb 
         volumes:
-        - ./mysqlDocker:/docker-entrypoint-initdb.d
+        - ./Modules/mysqldb:/docker-entrypoint-initdb.d
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: root
@@ -82,3 +81,4 @@ services:
 
 networks:
   testnet:
+

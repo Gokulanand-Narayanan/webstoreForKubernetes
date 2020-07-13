@@ -1,0 +1,16 @@
+##################################################################################################
+#************************************ DataSource Configuration **********************************#
+##################################################################################################
+DATA_SOURCE_JNDI_JBOSS=java:/onlineCartDS
+##################################################################################################
+#********************************** Database Query Configuration ********************************#
+##################################################################################################
+PREPARED_STATMENT_QUERY=SELECT id, store_id, created_at, updated_at, is_active, is_virtual, is_multi_shipping, status, items_count, items_quantity, grand_total, base_grand_total, checkout_method, checkout_comment, customer_id, customer_group_id, customer_email, customer_prefix, customer_firstname, customer_middlename, customer_lastname, customer_suffix, customer_dob, customer_is_guest, remote_ip, customer_gender, subtotal, base_subtotal, is_changed FROM checkout_order where id = ? and sleep(0.002)
+STATMENT_QUERY=SELECT id, customer_group, prefix, first_name, middle_name, last_name, email, date_of_birth, tax_number, gender, password, company, street_address1, street_address2, street_address3, city, country, state, postal_code, phone, fax FROM customer_master where sleep(0.002)
+##################################################################################################
+#************************************* HTTP Configuration ***************************************#
+##################################################################################################
+USER_AGENT=Mozilla/5.0
+GET_URL_1=http://customer/validation/validateuser.jsp
+GET_URL_2=http://customer/customers/sendshippingdetails.jsp
+
