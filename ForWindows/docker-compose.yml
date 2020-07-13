@@ -69,7 +69,6 @@ services:
         depends_on:
         - webstoredb 
     webstoredb:
-        image: egapm/docker-compose-kubernetes:webstoredb
         image: egapm/new-webstore:mysql
         restart: always
         container_name: webstoredb 
