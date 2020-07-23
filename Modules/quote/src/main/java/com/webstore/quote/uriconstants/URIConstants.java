@@ -20,7 +20,8 @@ public class URIConstants {
 			inputStream = URIConstants.class.getClassLoader().getResourceAsStream(propFileName);
 			if (inputStream != null) {
 				prop.load(inputStream);
-				String productHost = prop.getProperty("product_domain");
+//				String productHost = prop.getProperty("product_domain");
+				String productHost = System.getenv("product_domain");
 				String productContextString = prop.getProperty("product_context");
 				if(productContextString!=null && productContextString.length() > 0) {
 					productContext = productContextString;

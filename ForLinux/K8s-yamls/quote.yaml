@@ -25,6 +25,8 @@ spec:
         env:
          - name: JAVA_OPTS  #-javaagent:/opt/egbtm/eg_btm.jar 
            value: "-Duser.timezone=Asia/Singapore -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=3333 -Dcom.sun.management.jmxremote.rmi.port=3333 -DeG_Service_Name=Webstore-microsvc -DeG_Group_Name=Quote"
+         - name: product_domain
+           value: "product"
       volumes:
       - name: config-vol
         hostPath:

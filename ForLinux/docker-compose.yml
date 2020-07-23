@@ -5,7 +5,15 @@ services:
         build:
             context: ../Modules/webstore
         container_name: webstore
-        
+        environment:
+            - webstore_domain=webstore
+            - product_domain=product:8080
+            - cart_domain=quote:8080
+            - order_domain=order:8080
+            - customer_domain=customer:8080
+            - payment_domain=payment:8080
+            - activemq_domain=messagequeue:61616
+            - jms_queue=shipping-queue
         ports:
         - "8070:8080"
         networks:
@@ -46,6 +54,8 @@ services:
         build:
             context: ../Modules/payment/
         container_name: payment 
+        environment:
+            - gateway_domain=gateway:8080
         networks:
         - testnet
         depends_on:
@@ -64,6 +74,8 @@ services:
         build:
             context: ../Modules/quote/
         container_name: quote 
+        environment:
+            - product_domain=product:8080
         networks:
         - testnet
         depends_on:
@@ -73,7 +85,7 @@ services:
         restart: always
         container_name: webstoredb 
         volumes:
-        - ./mysqlDocker:/docker-entrypoint-initdb.d
+        - ../Modules/mysqldb:/docker-entrypoint-initdb.d
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: root

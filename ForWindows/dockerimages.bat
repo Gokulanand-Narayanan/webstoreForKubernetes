@@ -2,7 +2,7 @@ echo %cd%
 cd ../
 echo %cd%
 call mvn clean package
-
+cd ForWindows/
 docker-compose down
 
 docker system prune

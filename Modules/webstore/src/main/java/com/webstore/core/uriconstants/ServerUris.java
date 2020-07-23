@@ -50,7 +50,8 @@ public class ServerUris {
 			if (inputStream != null) {
 				prop.load(inputStream);
 				
-				String hostString = prop.getProperty("core_domain");
+//				String hostString = prop.getProperty("core_domain");
+				String hostString = System.getenv("core_domain");
 				if(hostString!=null && hostString.length() > 0) {
 					IP = hostString;
 					coreDomainUri = "http://"+IP;
@@ -60,7 +61,8 @@ public class ServerUris {
 					coreDomainUri = "http://"+IP;
 				}
 				
-				String paymentDomain = prop.getProperty("payment_domain");
+//				String paymentDomain = prop.getProperty("payment_domain");
+				String paymentDomain = System.getenv("payment_domain");
 				if(paymentDomain!=null && paymentDomain.length() > 0) {
 					paymentDomainURI = "http://"+paymentDomain;
 				}
@@ -68,7 +70,8 @@ public class ServerUris {
 					paymentDomainURI = "http://payment.apm.eginnovations.com:9190";
 				}
 				
-				String productHost = prop.getProperty("product_domain");
+//				String productHost = prop.getProperty("product_domain");
+				String productHost = System.getenv("product_domain");
 				if(productHost!=null && productHost.length() > 0) {
 					productDomainUri = "http://"+productHost;
 				}
@@ -76,7 +79,8 @@ public class ServerUris {
 					productDomainUri = "http://"+"products.apm.eginnovations.com"+":4040";
 				}
 				
-				String cartHost = prop.getProperty("cart_domain");
+//				String cartHost = prop.getProperty("cart_domain");
+				String cartHost = System.getenv("cart_domain");
 				if(cartHost!=null && cartHost.length() > 0) {
 					quoteDomainUri = "http://"+cartHost;
 				}
@@ -84,7 +88,8 @@ public class ServerUris {
 					quoteDomainUri = "http://"+"cart.apm.eginnovations.com"+":5050";
 				}
 				
-				String ordersHost = prop.getProperty("order_domain");
+//				String ordersHost = prop.getProperty("order_domain");
+				String ordersHost = System.getenv("order_domain");
 				if(ordersHost!=null && ordersHost.length() > 0) {
 					orderDomainUri = "http://"+ordersHost;
 				}
@@ -92,7 +97,8 @@ public class ServerUris {
 					orderDomainUri = "http://"+"orders.apm.eginnovations.com"+":6060";
 				}
 				
-				String customerDomain = prop.getProperty("customer_domain");
+//				String customerDomain = prop.getProperty("customer_domain");
+				String customerDomain = System.getenv("customer_domain");
 				if(customerDomain!=null && customerDomain.length() > 0) {
 					customerDomainUri = "http://"+customerDomain;
 				}
@@ -100,7 +106,8 @@ public class ServerUris {
 					customerDomainUri = "http://"+"customers.apm.eginnovations.com"+":7070";
 				}
 				
-				String mqdomain = prop.getProperty("activemq_domain");
+//				String mqdomain = prop.getProperty("activemq_domain");
+				String mqdomain = System.getenv("activemq_domain");
 				if(mqdomain!=null && mqdomain.length() > 0) {
 					activeMQUrl = "tcp://"+mqdomain;
 				}
@@ -108,7 +115,8 @@ public class ServerUris {
 					activeMQUrl = "tcp://localhost:61616";
 				} 
 				
-				String jms_queue = prop.getProperty("jms_queue");
+//				String jms_queue = prop.getProperty("jms_queue");
+				String jms_queue = System.getenv("jms_queue");
 				if(jms_queue!=null && jms_queue.length() > 0) {
 					queueName = jms_queue;
 				}

@@ -28,6 +28,22 @@ spec:
         env:
          - name: JAVA_OPTS #-javaagent:/opt/egbtm/eg_btm.jar 
            value: "-Duser.timezone=Asia/Singapore -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=3333 -Dcom.sun.management.jmxremote.rmi.port=3333 -DeG_Service_Name=Webstore-microsvc -DeG_Group_Name=Webstore"
+         - name: webstore_domain
+           value: "webstore"
+         - name: product_domain
+           value: "product"
+         - name: cart_domain
+           value: "quote"
+         - name: order_domain
+           value: "order"
+         - name: customer_domain
+           value: "customer"
+         - name: payment_domain
+           value: "payment"
+         - name: activemq_domain
+           value: "messagequeue:61616"
+         - name: jms_queue
+           value: "shipping-queue"
       volumes:
       - name: config-vol
         hostPath:
