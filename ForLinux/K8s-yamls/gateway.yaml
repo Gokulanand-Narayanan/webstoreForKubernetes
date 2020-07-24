@@ -20,21 +20,32 @@ spec:
         ports:
         - containerPort: 8080
 ---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: mastercardpaymentgateway 
+#spec:
+#  selector:
+#    name: gateway 
+#  ports:
+#  - port: 80
+#    targetPort: 80
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: visapaymentgateway 
+#spec:
+#  selector:
+#    name: gateway 
+#  ports:
+#  - port: 80
+#    targetPort: 80
+#---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mastercardpaymentgateway 
-spec:
-  selector:
-    name: gateway 
-  ports:
-  - port: 80
-    targetPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: visapaymentgateway 
+  name: gateway 
 spec:
   selector:
     name: gateway 
