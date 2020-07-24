@@ -7,7 +7,7 @@
 
 <b>The follwoing are the service names for kuberenetes:</b>
 <br/>
-	&#9;webstore<br/>
+&#9; webstore<br/>
 	&#9;product<br/>
 	&#9;quote<br/>
 	&#9;order<br/>
