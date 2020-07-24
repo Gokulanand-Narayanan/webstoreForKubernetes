@@ -1,9 +1,9 @@
 #!/bin/sh
-cd ../K8s-yamls
+cd ./K8s-yamls
 kubectl delete -f .
 cd db
 kubectl delete -f .
-cd ../..
+cd ../../..
 mvn clean package 
 cd ForLinux
 echo $PWD
