@@ -1,3 +1,4 @@
+<img src="githubimages/webstoreimages.png"/>
 # webstoreForKubernetes
 This contains setup that could be run with kubernetes and docker
 
