@@ -1,7 +1,7 @@
 version: '3'
 services:
     webstore:
-        image: egapm/docker-compose-kubernetes:webstore
+        image: egapm/openshift-daemonset:webstore
         build:
             context: ..\Modules\webstore
         container_name: webstore
@@ -26,7 +26,7 @@ services:
         - quote
         - payment
     customer:
-        image: egapm/docker-compose-kubernetes:customer
+        image: egapm/openshift-daemonset:customer
         build:
             context: ..\Modules\customers\
         container_name: customer 
@@ -35,14 +35,14 @@ services:
         depends_on:
         - webstoredb 
     gateway:
-        image: egapm/docker-compose-kubernetes:gateway
+        image: egapm/openshift-daemonset:gateway
         build:
             context: ..\Modules\gateway\
         container_name: gateway 
         networks:
         - testnet
     order:
-        image: egapm/docker-compose-kubernetes:order
+        image: egapm/openshift-daemonset:order
         build:
             context: ..\Modules\order\
         container_name: order 
@@ -51,7 +51,7 @@ services:
         depends_on:
         - webstoredb 
     payment:
-        image: egapm/docker-compose-kubernetes:payment
+        image: egapm/openshift-daemonset:payment
         build:
             context: ..\Modules\payment\
         container_name: payment 
@@ -62,7 +62,7 @@ services:
         depends_on:
         - gateway 
     product:
-        image: egapm/docker-compose-kubernetes:product
+        image: egapm/openshift-daemonset:product
         build:
             context: ..\Modules\products\
         container_name: product 
@@ -71,7 +71,7 @@ services:
         depends_on:
         - webstoredb 
     quote:
-        image: egapm/docker-compose-kubernetes:quote
+        image: egapm/openshift-daemonset:quote
         build:
             context: ..\Modules\quote\
         container_name: quote
