@@ -1,4 +1,4 @@
-# Webstore
+# WebStore  - An Example E-Commerce Micro Services Application in Java
 
 <img src="githubimages/webstoreimages.png"/>
 
